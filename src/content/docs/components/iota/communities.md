@@ -20,87 +20,8 @@ By removing a user from a community you are removing the shared secret.
 
 ## Connecting
 
-Connect to a community on a websocket or websocket-secure on `ws[s]://[ip]:[port]`.
+Connect to a community on a websocket or websocket-secure on `ws[s]://[ip]:[port]/ws/community/[community name]`.
 Standard port of a community is 1984.
-
-## Identification
-
-### Client storing a community on their Iota
-
-##### `REQ:`
-
-```json
-{
-  "type": "add_community",
-  "log": {
-    "log_level": 1,
-    "message": "Client adding Community"
-  },
-  "data": {
-    "community_address": "community_address",
-    "community_title": "community_title",
-    "position": "x.y.z"
-  }
-}
-```
-
-##### `RES:`
-
-```json
-{
-  "type": "add_community",
-  "log": {
-    "log_level": 1,
-    "message": "Client added Community"
-  },
-  "data": {}
-}
-```
-
-### Client loading communities from their Iota
-
-##### `REQ:`
-
-```json
-{
-  "type": "get_communities",
-  "log": {
-    "log_level": 0,
-    "message": "Client loading Communities"
-  },
-  "data": {}
-}
-```
-
-##### `RES:`
-
-```json
-{
-  "type": "get_community",
-  "log": {
-    "log_level": 0,
-    "message": "User Communities"
-  },
-  "data": {
-    "communities": [
-      {
-        "community_address": "enc_community_address",
-        "community_title": "enc_community_title",
-        "position": "x.y.z" // Frontend defines folders etc
-      },
-      {
-        "community_address": "enc_community_address",
-        "community_title": "enc_community_title",
-        "position": "x.y.z"
-      }
-    ]
-  }
-}
-```
-
-### Logging into a community
-
-Create a Websocket
 
 ##### `REQ (C2S):`
 

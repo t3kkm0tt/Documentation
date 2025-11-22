@@ -18,22 +18,20 @@ When a message comes from an iota without a `sender-id` that the iota has access
 {
   "sender_id": "<user-id>",
   "receiver_id": "<user-id>",
-
+  
   "type": "message_send",
   "id": "<uuid>",
   "data": {
-    {
-      "receiver_id": "<uuid>",
-      "content": "<markdown (encrypted)>",
-      "files": [
-        {
-         "name": "<cool name>",
-          "id": "<uuid>",
-          "type": "[ image | image_top_right | file ]"
-        }
-      ]
+	    "receiver_id": "<uuid>",
+	    "content": "<markdown (encrypted)>",
+	    "files": [
+			{
+		         "name": "<cool name>",
+		          "id": "<uuid>",
+		          "type": "[ image | image_top_right | file ]"
+	        }
+	    ]
     }
-  }
 }
 ```
 
@@ -41,12 +39,12 @@ When a message comes from an iota without a `sender-id` that the iota has access
 
 ```json
 {
-  "sender_id": "<user-id>",
-  "receiver_id": "<user-id>",
-
-  "type": "message_send",
-  "id": "<uuid>",
-  "data": {}
+	"sender_id": "<user-id>",
+	"receiver_id": "<user-id>",
+  
+	"type": "message_send",
+	"id": "<uuid>",
+	"data": {}
 }
 ```
 
@@ -57,7 +55,7 @@ When a message comes from an iota without a `sender-id` that the iota has access
 ```json
 {
 	"sender_id": "<user-id>",
-
+	
 	"type":"messages_get",
 	"id": "<uuid>",
 	"data": {
@@ -73,27 +71,27 @@ When a message comes from an iota without a `sender-id` that the iota has access
 ```json
 {
 	"sender_id": "<iota-id>",
-
+	
 	"type":"messages_get",
 	"id": "<uuid>",
 	"data": {
-  	"messages": [
-	    {
-		  	"sent_by_self": true,
-		  	"timestamp": 0, // UNIX Timestamp for time sent
-		    "content": "<markdown (encrypted)>",
-		    "files": [
-		  	  {
-		  	    "name": "<cool name>",
-		  	    "id": "<uuid>",
-		  	    "type": "[ image | image_top_right | file ]"
-		  	  }
-		    ],
-		    "tint": "<hex color>",
-		    "avatar": false, // unless false key is removed
-		    "display": false, // unless false key is removed
-	    }
-	  ]
+	  	"messages": [
+		    {
+			  	"sent_by_self": true,
+			  	"timestamp": 0, // UNIX Timestamp for time sent
+			    "content": "<markdown (encrypted)>",
+			    "files": [
+			  	  {
+			  	    "name": "<cool name>",
+			  	    "id": "<uuid>",
+			  	    "type": "[ image | image_top_right | file ]"
+			  	  }
+			    ],
+			    "tint": "<hex color>",
+			    "avatar": false, // unless false key is removed
+			    "display": false, // unless false key is removed
+		    }
+		]
 	}
 }
 ```
@@ -104,14 +102,12 @@ When a message comes from an iota without a `sender-id` that the iota has access
 
 ```json
 {
-  "sender_id": "<user_id>",
-  "receiver_id": "<user_id>",
-
-  "type": "message",
-  "id": "<uuid>",
-  "data": {
-    "message_content": "<message>"
-  }
+	"type": "message_send",
+	"id": "<message_id>",
+	"data": {
+		"receiver_id": "99999999-8888-7777-6666-555555555555",
+	    "content": "Hello, how are you?"
+	}
 }
 ```
 
@@ -119,11 +115,188 @@ When a message comes from an iota without a `sender-id` that the iota has access
 
 ```json
 {
-  "sender_id": "<user_id>",
-  "receiver_id": "<user_id>",
+	"type": "message",
+	"id": "<message_id>",
+	"receiver": "<user_id>"
+}
+```
+### Receive live message (`message_other_iota`)
+##### `UPDATE:`
 
-  "type": "message",
-  "id": "<uuid>",
-  "data": {}
+```json
+{   
+	"type": "message_live",   
+	"id": "<message_id>",
+	"receiver": "<user_id>",
+
+	"data": {     
+		"send_time": unixstamp,     
+		"message": "<content>",     
+		"sender_id": "99999999-8888-7777-6666-555555555555"   
+	} 
+}
+```
+
+
+## Communities
+
+### Client storing a community on their Iota
+
+##### `REQ:`
+
+```json
+{
+	"type": "add_community",  
+	"id": "<message_id>",
+	"receiver": "<user_id>",
+	
+	"data": {
+	    "community_address": "community_address",
+	    "community_title": "community_title",
+	    "position": "x.y.z"
+	}
+}
+```
+
+##### `RES:`
+
+```json
+{
+	"type": "add_community",  
+	"id": "<message_id>",
+	"receiver": "<user_id>",
+	
+	"data": {}
+}
+```
+
+### Client loading communities from their Iota
+
+##### `REQ:`
+
+```json
+{
+	"type": "get_communities", 
+	"id": "<message_id>",
+	
+	"data": {}
+}
+```
+
+##### `RES:`
+
+```json
+{
+	"type": "get_community",  
+	"id": "<message_id>",
+	"receiver": "<user_id>",
+	
+	"data": {
+		"communities": [
+			{
+				"community_address": "enc_community_address",
+				"community_title": "enc_community_title",
+				"position": "x.y.z" // Frontend defines folders etc
+			},
+			{
+				"community_address": "enc_community_address",
+				"community_title": "enc_community_title",
+				"position": "x.y.z"
+			}
+		]
+	}
+}
+```
+
+### Remove a community
+##### `REQ:`
+
+```json
+{  
+	"type": "remove_community",
+	"id": "<message_id>",
+	
+	"data": {     
+		"community_address": "community-uuid-or-address"  
+	} 
+}
+```
+##### `RES`:
+
+```json
+{
+	"type": "remove_community",     
+	"id": "<message_id>",
+	"receiver": "<user_id>",
+}
+```
+
+## User Settings
+### Save user Settings on Iota
+
+##### `REQ:`
+
+```json
+{
+	"type": "settings_save",
+	"id": "<message_id>",
+	
+	"data": {
+		"setting_name": "<name of category>",
+		"payload": {
+			"this": "will",
+			"be": "saved",
+			"on": "the",
+			"iota": "!"
+		}
+	}
+}
+```
+
+##### `RES:`
+
+```json
+{
+	"type": "settings_save",
+	"id": "<message_id>",
+	"receiver": "<user_id>",
+	
+	"data": {}
+}
+```
+
+### Load user Settings
+
+##### `REQ:`
+
+```json
+{
+	"type": "settings_load",
+	"id": "<message_id>",
+	
+	"data": {
+		"setting_name": "<name of category>"
+		
+	}
+}
+```
+
+##### `RES:`
+
+```json
+{
+	"type": "settings_load",
+	"id": "<message_id>",
+	"receiver": "<user_id>",
+	
+	"data": {
+		"setting_name": "<name of category>",
+		"payload": {
+			"this": "will",
+			"be": "saved",
+			"on": "the",
+			"iota": "!"
+		}
+	}
 }
 ```

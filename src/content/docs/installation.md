@@ -5,42 +5,53 @@ title: Installation
 # Client
 
 You can download the client from [GitHub](https://github.com/Tensamin/Frontend/releases) or directly from the [Homepage](https://tensamin.net).
-For linux we have .deb and .rpm files on github and an [AUR Package](https://aur.archlinux.org/packages/tensamin-bin) (`paru -S tensamin-bin`) as well as a Nix Flake:
+For linux we have `.deb` and `.rpm` files on github, two AUR packages and a Nix Flake.
 
 ### Arch Linux
 
-- This includes [>these distros<](https://wiki.archlinux.org/title/Arch-based_distributions)
+This includes [these distros](https://wiki.archlinux.org/title/Arch-based_distributions)
 
-Easy Install
+##### Easy Install
 
 - `paru -S tensamin-bin`
 - `yay -S tensamin-bin`
 
-Manual Install
+- `paru -S tensamin-git`
+- `yay -S tensamin-git`
 
-```bash
+##### Manual Install
+
+```sh
 git clone https://aur.archlinux.org/tensamin-bin
 cd tensamin-bin
 makepkg -si
 ```
 
+```sh
+git clone https://aur.archlinux.org/tensamin-git
+cd tensamin-git
+makepkg -si
+```
+
 ### Nix Flakes
 
-1. Add it to the Flake inputs.
-
-```nix
+```nix flake.nix
 {
+  # ...
   inputs = {
     tensamin.url = "github:Tensamin/Frontend";
     # ...
   };
+
+  outputs = {
+    tensamin,
+    # ...
+  }:
   # ...
 }
 ```
 
-2. Add it to the `environment.systemPackages`.
-
-```nix
+```nix configuration.nix
 { }: {
   # ...
   environment.systemPackages = [ inputs.tensamin.packages.${pkgs.system}.default ];
@@ -57,7 +68,7 @@ You can download the Iota from [GitHub](https://github.com/Tensamin/Iota/release
 Not available yet!
 
 ```yaml
-/
+services:
 ```
 
 `docker run /`
@@ -75,5 +86,3 @@ services.iota = {
   ];
 };
 ```
-
-# Community

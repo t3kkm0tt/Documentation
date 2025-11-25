@@ -14,10 +14,7 @@ This includes [these distros](https://wiki.archlinux.org/title/Arch-based_distri
 ##### Easy Install
 
 - `paru -S tensamin-bin`
-- `yay -S tensamin-bin`
-
 - `paru -S tensamin-git`
-- `yay -S tensamin-git`
 
 ##### Manual Install
 
@@ -56,7 +53,9 @@ makepkg -si
 ```nix
 { }: {
   # ...
-  environment.systemPackages = [ inputs.tensamin.packages.${pkgs.system}.default ];
+  environment.systemPackages = [
+    inputs.tensamin.packages.${pkgs.system}.default
+  ];
   # ...
 }
 ```

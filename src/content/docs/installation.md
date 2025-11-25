@@ -33,9 +33,10 @@ cd tensamin-git
 makepkg -si
 ```
 
-### Nix Flakes
+### Nix Flake
 
-```nix flake.nix
+**flake.nix**
+```nix
 {
   # ...
   inputs = {
@@ -51,7 +52,8 @@ makepkg -si
 }
 ```
 
-```nix configuration.nix
+**configuration.nix**
+```nix
 { }: {
   # ...
   environment.systemPackages = [ inputs.tensamin.packages.${pkgs.system}.default ];

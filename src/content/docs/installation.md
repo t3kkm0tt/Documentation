@@ -65,7 +65,7 @@ makepkg -si
 
 ### GitHub
 
-```
+```bash
 git clone github.com/Tensamin/Iota
 cd Iota
 cargo build --release

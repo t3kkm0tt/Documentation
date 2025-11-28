@@ -61,7 +61,7 @@ makepkg -si
 ```
 
 # Iota
-## The Iota can be installed using the following methods:
+### The Iota can be installed using the following methods:
 
 ### GitHub
 

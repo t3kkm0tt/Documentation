@@ -70,8 +70,10 @@ git clone github.com/Tensamin/Iota
 cd Iota
 cargo build --release
 sudo cp target/release /lib/iota -fr
-sudo ln /lib/iota /usr/bin/iota
+sudo ln -s /lib/iota/Iota /usr/bin/iota
 ```
+To start the Iota, run `sudo iota`. To make it not require root permissions(not recommended), run `chmod a+rw /lib/iota`.
+
 
 ### Docker
 

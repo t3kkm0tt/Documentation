@@ -61,8 +61,17 @@ makepkg -si
 ```
 
 # Iota
+## The Iota can be installed using the following methods:
 
-You can download the Iota from [GitHub](https://github.com/Tensamin/Iota/releases) or install it using on of these methods:
+### GitHub
+
+```
+git clone github.com/Tensamin/Iota
+cd Iota
+cargo build --release
+sudo cp target/release /lib/iota -fr
+sudo ln /lib/iota /usr/bin/iota
+```
 
 ### Docker
 
